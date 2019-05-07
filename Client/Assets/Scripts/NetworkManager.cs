@@ -8,8 +8,11 @@ public class NetworkManager : MonoBehaviour
 {
     [SerializeField] Text showTxt = null;
     [SerializeField] InputField inputField = null;
+    [SerializeField] Button btnSendSuggestion = null;
 
     SocketIOComponent socketIOComponent = null;
+
+    bool isGameEnd = false;
 
     void Awake()
     {
@@ -19,20 +22,28 @@ public class NetworkManager : MonoBehaviour
     {
         socketIOComponent.On("login", OnLoginSuccess);
         socketIOComponent.On("return result", OnReturnResult);
+        socketIOComponent.On("new lottery created", OnNewLotteryCreated);
     }
     public void SendSuggestion()
     {
-        int suggestNumber = 0;
-        try
+        if (isGameEnd)
         {
-            suggestNumber = int.Parse(inputField.text);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
         }
-        catch(System.InvalidCastException)
+        else
         {
-            suggestNumber = 0;
+            int suggestNumber = 0;
+            try
+            {
+                suggestNumber = int.Parse(inputField.text);
+            }
+            catch (System.InvalidCastException)
+            {
+                suggestNumber = 0;
+            }
+            string data = JsonUtility.ToJson(new PlayerJSON(PlayerData.name, suggestNumber));
+            socketIOComponent.Emit("request suggest", new JSONObject(data));
         }
-        string data = JsonUtility.ToJson(new PlayerJSON(PlayerData.name,suggestNumber));
-        socketIOComponent.Emit("request suggest",new JSONObject(data));
     }
     void OnLoginSuccess(SocketIOEvent socketIOEvent)
     {
@@ -60,5 +71,10 @@ public class NetworkManager : MonoBehaviour
             showTxt.text = "Your number is not correct";
             showTxt.color = Color.red;
         }
+    }
+    void OnNewLotteryCreated(SocketIOEvent socketIOEvent)
+    {
+        isGameEnd = true;
+        btnSendSuggestion.GetComponentInChildren<Text>().text = "New Game";
     }
 }
