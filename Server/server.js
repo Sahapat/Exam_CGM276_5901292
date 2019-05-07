@@ -26,6 +26,10 @@ io.on('connection', function (socket) {
             socket.emit('return result',checkResult);
             console.log(data.name+" win the lottery");
             lottery = getRandomInt(100);
+            console.log("the new lottery has been created");
+            console.log("current lottery is " + lottery);
+            socket.emit('new lottery created');
+            socket.broadcast.emit('new lottery created');
         }
         else {
             var checkResult={
