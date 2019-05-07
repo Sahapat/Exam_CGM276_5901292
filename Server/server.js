@@ -20,7 +20,7 @@ io.on('connection', function (socket) {
         if (data.number == lottery) {
             var checkResult = {
                 name: data.name,
-                status: true
+                status: 0
             }
             socket.broadcast.emit('return result',checkResult);
             socket.emit('return result',checkResult);
@@ -32,9 +32,18 @@ io.on('connection', function (socket) {
             socket.broadcast.emit('new lottery created');
         }
         else {
+            var resResult = 0;
+            if(data.number < lottery)
+            {
+                resResult = -1;
+            }
+            else
+            {
+                resResult = 1;
+            }
             var checkResult={
                 name:data.name,
-                status:false
+                status:resResult
             }
             socket.emit('return result',checkResult);
             console.log(data.name+" is not correct");
