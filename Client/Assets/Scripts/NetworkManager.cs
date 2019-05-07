@@ -53,23 +53,29 @@ public class NetworkManager : MonoBehaviour
     void OnReturnResult(SocketIOEvent socketIOEvent)
     {
         var result = CheckJSON.CreateFromJSON(socketIOEvent.data.ToString());
-        if (result.status)
+
+        switch (result.status)
         {
-            if (result.name == PlayerData.name)
-            {
-                showTxt.text = "You win the lottery";
-                showTxt.color = Color.green;
-            }
-            else
-            {
-                showTxt.text = $"{result.name} win the lottery";
-                showTxt.color = Color.yellow;
-            }
-        }
-        else
-        {
-            showTxt.text = "Your number is not correct";
-            showTxt.color = Color.red;
+            case -1:
+                showTxt.text = "Too Low";
+                showTxt.color = Color.red;
+                break;
+            case 0:
+                if (result.name == PlayerData.name)
+                {
+                    showTxt.text = "You win the lottery";
+                    showTxt.color = Color.green;
+                }
+                else
+                {
+                    showTxt.text = $"{result.name} win the lottery";
+                    showTxt.color = Color.yellow;
+                }
+                break;
+            case 1:
+                showTxt.text = "Too High";
+                showTxt.color = Color.red;
+                break;
         }
     }
     void OnNewLotteryCreated(SocketIOEvent socketIOEvent)

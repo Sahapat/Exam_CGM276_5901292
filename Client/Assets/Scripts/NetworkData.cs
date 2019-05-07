@@ -21,7 +21,7 @@ public class PlayerJSON
 public class CheckJSON
 {
     public string name;
-    public bool status;
+    public int status;
 
     public static CheckJSON CreateFromJSON(string data)
     {

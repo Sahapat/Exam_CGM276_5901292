@@ -973,6 +973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showTxt: {fileID: 837007380}
   inputField: {fileID: 157260569}
+  btnSendSuggestion: {fileID: 1370924167}
 --- !u!4 &1521971572
 Transform:
   m_ObjectHideFlags: 0
