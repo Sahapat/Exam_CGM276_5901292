@@ -23,6 +23,8 @@ io.on('connection', function (socket) {
                 status: true
             }
             socket.broadcast.emit('return result',checkResult);
+            socket.emit('return result',checkResult);
+            console.log(data.name+" win the lottery");
             lottery = getRandomInt(100);
         }
         else {
@@ -31,28 +33,9 @@ io.on('connection', function (socket) {
                 status:false
             }
             socket.emit('return result',checkResult);
+            console.log(data.name+" is not correct");
         }
     })
-    /* socket.on('check lottery', function (data) {
-        var result = 0;
-
-        if(data.number == lottery)
-        {
-            result = 1;
-            lottery = getRandomInt(100);
-        }
-        else
-        {
-            result = 0;
-        }
-
-        var lotteryRes ={
-            number:result
-        }
-        
-        socket.emit('check result',lotteryRes);
-        console.log('Check:'+lottery+' in:'+data.number);
-    }) */
 });
 
 function getRandomInt(max) {
