@@ -872,7 +872,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1370924168}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1521576950}
+        m_MethodName: SendSuggestion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1370924168
@@ -924,7 +935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 961346d7e16a445ff93777573e78efd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: ws://127.0.0.1:4567/socket.io/?EIO=4&transport=websocket
+  url: ws://127.0.0.1:3000/socket.io/?EIO=4&transport=websocket
   autoConnect: 1
   reconnectDelay: 5
   ackExpirationTime: 1800
@@ -960,6 +971,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4151ce9e3a0df674a8cff99c5138abbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showTxt: {fileID: 837007380}
+  inputField: {fileID: 157260569}
 --- !u!4 &1521971572
 Transform:
   m_ObjectHideFlags: 0
